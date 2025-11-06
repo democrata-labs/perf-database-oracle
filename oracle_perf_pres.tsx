@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Database, ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Database, ChevronUp, ChevronDown, HelpCircle } from 'lucide-react';
 
 const OraclePresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -755,76 +755,42 @@ const OraclePresentation = () => {
         </div>
       )
     },
+    // Slide 17: Combined Conclusões + Checklist
     {
-      title: "Principais Conclusões",
+      title: "Checklist",
       content: (
-        <div className="flex flex-col justify-center h-full space-y-6">
-          <h2 className="text-4xl font-bold text-gray-800 text-center mb-6">Lembre-se</h2>
+        <div className="space-y-4 overflow-auto">
           
-          <div className="space-y-4 text-lg">
-            <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-              <p className="text-gray-800"><span className="font-bold">1.</span> Sempre analise antes de otimizar - use EXPLAIN PLAN</p>
-            </div>
-            
-            <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-              <p className="text-gray-800"><span className="font-bold">2.</span> Evite as armadilhas comuns - elas respondem por 80% dos problemas de performance</p>
-            </div>
-            
-            <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-              <p className="text-gray-800"><span className="font-bold">3.</span> Indexação adequada é crucial mas não é uma solução mágica</p>
-            </div>
-            
-            <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-              <p className="text-gray-800"><span className="font-bold">4.</span> Teste com volumes de dados similares aos de produção</p>
-            </div>
-            
-            <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-              <p className="text-gray-800"><span className="font-bold">5.</span> Mantenha as estatísticas atualizadas com DBMS_STATS</p>
-            </div>
-
-            <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
-              <p className="text-gray-800"><span className="font-bold">6.</span> Use recursos avançados com sabedoria - CTEs, hints, particionamento e operações em lote</p>
-            </div>
-          </div>
-
-          <p className="text-center text-2xl text-gray-600 mt-8 font-semibold">Perguntas?</p>
-        </div>
-      )
-    },
-    {
-      title: "Checklist Rápido de Performance",
-      content: (
-        <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Antes de Fazer Deploy</h2>
+          <h2 className="text-2xl font-bold text-gray-800 text-center mb-3">Checklist</h2>
           
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-green-50 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-green-900 mb-3">✅ FAÇA</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="bg-green-50 p-3 rounded-lg">
+              <h3 className="text-md font-bold text-green-900 mb-2">✅ FAÇA</h3>
+              <ul className="space-y-1 text-xs text-gray-700">
                 <li>✓ Use EXPLAIN PLAN antes de produção</li>
                 <li>✓ Selecione apenas colunas necessárias</li>
                 <li>✓ Crie índices em colunas WHERE/JOIN</li>
                 <li>✓ Use bind variables para consultas repetidas</li>
                 <li>✓ Mantenha estatísticas atualizadas</li>
                 <li>✓ Use sintaxe ANSI JOIN</li>
-                <li>✓ Limite conjuntos de resultados com cláusulas WHERE</li>
-                <li>✓ Use EXISTS ao invés de IN para subconsultas</li>
+                <li>✓ Limite conjuntos com cláusulas WHERE</li>
+                <li>✓ Use EXISTS ao invés de IN</li>
                 <li>✓ Considere CTEs para consultas complexas</li>
                 <li>✓ Use funções analíticas ao invés de self-joins</li>
                 <li>✓ Implemente operações em lote em PL/SQL</li>
               </ul>
             </div>
             
-            <div className="bg-red-50 p-4 rounded-lg">
-              <h3 className="text-lg font-bold text-red-900 mb-3">❌ NÃO FAÇA</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+            <div className="bg-red-50 p-3 rounded-lg">
+              <h3 className="text-md font-bold text-red-900 mb-2">❌ NÃO FAÇA</h3>
+              <ul className="space-y-1 text-xs text-gray-700">
                 <li>✗ Use SELECT *</li>
                 <li>✗ Aplique funções em colunas indexadas</li>
                 <li>✗ Use OR quando IN é possível</li>
                 <li>✗ Ignore conversões implícitas de tipo</li>
                 <li>✗ Crie índices demais</li>
                 <li>✗ Use DISTINCT para esconder joins ruins</li>
-                <li>✗ Consulte sem WHERE em tabelas grandes</li>
+                <li>✗ Consultas sem WHERE em tabelas grandes</li>
                 <li>✗ Use NOT IN com colunas anuláveis</li>
                 <li>✗ Use hints em excesso sem testar</li>
                 <li>✗ Processe linhas uma-a-uma em loops</li>
@@ -832,10 +798,20 @@ const OraclePresentation = () => {
             </div>
           </div>
 
-          <div className="bg-blue-100 p-4 rounded-lg">
-            <h3 className="text-lg font-bold text-blue-900 mb-2">Regra de Ouro</h3>
-            <p className="text-gray-800 italic">"Meça, não adivinhe. Sempre verifique com EXPLAIN PLAN e tempos de execução reais."</p>
+          <div className="bg-blue-100 p-3 rounded-lg">
+            <h3 className="text-md font-bold text-blue-900 mb-1">Regra de Ouro</h3>
+            <p className="text-gray-800 italic text-sm">"Meça, não adivinhe. Sempre verifique com EXPLAIN PLAN e tempos de execução reais."</p>
           </div>
+        </div>
+      )
+    },
+    {
+      title: "Perguntas",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <HelpCircle className="w-32 h-32 text-blue-600" />
+          <h1 className="text-5xl font-bold text-gray-800">Perguntas?</h1>
+
         </div>
       )
     }
